@@ -24,9 +24,13 @@ pipeline {
 	   
 	stage('Kubernetes Deployment of ASG Bugg Web Application') {
 	   steps {
+		   echo "before Kubelogin"
 	      withKubeConfig([credentialsId: 'kubeconfig']) {
+		  echo "after kubelogin"
 		  sh('kubectl delete all --all -n dev')
+		  echo "after deleting the namespace"
 		  sh ('kubectl apply -f deployment.yaml --namespace=dev')
+		  echo "after deploying kubernetes"
 		}
 	      }
    	}
